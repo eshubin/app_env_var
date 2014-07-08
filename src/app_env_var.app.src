@@ -8,5 +8,8 @@
                   stdlib
                  ]},
   {mod, { app_env_var_app, []}},
-  {env, []}
+  {env, [
+      {var1, something1},
+      {var2, something}
+  ]}
  ]}.
