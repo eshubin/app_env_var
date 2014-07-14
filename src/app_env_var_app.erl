@@ -48,7 +48,8 @@ performance_test_() ->
             [
                 fun() -> test_performance(TestRounds, gs1) end,
                 fun() -> test_performance(TestRounds, gs2) end,
-                ?_assertEqual({ok, app_env_var}, gs1:get_application())
+                ?_assertEqual({ok, app_env_var}, gs1:get_application()),
+                ?_assertEqual(undefined, gs1:get_application_in_caller_proc())
             ]
         end
     }.

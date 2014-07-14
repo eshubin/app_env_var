@@ -3,7 +3,8 @@
 -behaviour(gen_server).
 
 %% API
--export([start_link/1, use_env_variable/0, get_application/0]).
+-export([start_link/1, use_env_variable/0, get_application/0,
+        get_application_in_caller_proc/0]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -28,6 +29,9 @@ use_env_variable() ->
 
 get_application() ->
     gen_server:call(?SERVER, get_app).
+
+get_application_in_caller_proc() ->
+    application:get_application().
 
 %%%===================================================================
 %%% gen_server callbacks
@@ -62,7 +66,8 @@ basic_test_() ->
         fun(_) ->
             [
                 ?_assertEqual(3, use_env_variable()),
-                ?_assertEqual(undefined, gs1:get_application())
+                ?_assertEqual(undefined, gs1:get_application()),
+                ?_assertEqual(undefined, gs1:get_application_in_caller_proc())
             ]
         end
     }.
