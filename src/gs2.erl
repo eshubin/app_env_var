@@ -48,8 +48,12 @@ basic_test_() ->
     {
         setup,
         fun() ->
-            start_link(),
-            application:set_env(app_env_var, var2, 3)
+            application:set_env(app_env_var, var2, 3),
+            start_link()
+        end,
+        fun({ok, Pid}) ->
+            unlink(Pid),
+            exit(Pid, stop)
         end,
         fun(_) ->
             [
